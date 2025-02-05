@@ -2,4 +2,402 @@
 
 .page {
   /* сохраните в разметке и стилях класс page. На его основе работает скрипт. */
+  display: flex;
+  flex-direction: column;
+
+  background-image: var(--background-picture);
+  background-color: var(--background-color, #00183f);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+
+  font-family: var(
+    --main-font-family,
+    "IBM Plex mono",
+    Arial,
+    Helvetica,
+    sans-serif
+  );
+  font-weight: var(--font-weight-normal, normal);
+  font-size: var(--font-size-small, 18px);
+  line-height: var(--line-height-normal, 23.4px);
+}
+
+/*Настройки header и декоративных элементов в header*/
+
+.header {
+  inline-size: 100%;
+  min-block-size: 668px;
+  block-size: 100vh;
+  padding: var(--main-gap, 10px);
+
+  display: grid;
+  grid-template-rows: 1fr min-content 1fr;
+  justify-items: end;
+  align-items: center;
+}
+
+.decorated-zone {
+  position: relative;
+}
+
+.decorated-zone::before,
+.decorated-zone::after {
+  content: "";
+  display: block;
+  width: 25px;
+  height: 25px;
+  position: absolute;
+}
+
+.decorated-zone::before {
+  border-block-start: 1px solid var(--decorative-corners-color, #ff0070);
+  border-inline-end: 1px solid var(--decorative-corners-color, #ff0070);
+  inset-block-start: var(--main-gap, 10px);
+  inset-inline-end: var(--main-gap, 10px);
+}
+
+.decorated-zone::after {
+  border-block-end: 1px solid var(--decorative-corners-color, #ff0070);
+  border-inline-start: 1px solid var(--decorative-corners-color, #ff0070);
+  inset-block-end: var(--main-gap, 10px);
+  inset-inline-start: var(--main-gap, 10px);
+}
+
+.header__rec-element {
+  display: block;
+  color: var(--accent-color, #ff0070);
+  text-transform: uppercase;
+  position: absolute;
+  inset-block-start: var(--main-gap, 10px);
+  inset-inline-end: calc(var(--main-gap, 10px) + 10px);
+}
+
+.header__rec-element::after {
+  content: "";
+  display: inline-block;
+  width: 9px;
+  height: 9px;
+  margin-inline-start: 9px;
+  background-color: var(--accent-color, #ff0070);
+  border-radius: 50%;
+  box-shadow: 0px 0px 4px 2px var(--accent-color, #ff0070);
+}
+
+/*Меню и контент header*/
+
+.header__theme-menu {
+  color: var(--header-menu-color, #ff0070);
+}
+
+.header__theme-menu-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px; /*фиксированный для любых размеров*/
+}
+
+.header__theme-menu-button {
+  background-color: transparent;
+  border: 1px solid transparent;
+  text-transform: lowercase;
+  line-height: 1;
+  padding: 0 13px 4px;
+  margin: 0;
+  appearance: none;
+  position: relative;
+}
+
+.header__title {
+  color: var(--page-title-color, #db00ff);
+  font-weight: var(--font-weight-bold, bold);
+  font-size: var(--page-title-size);
+  text-shadow: 4px 4px 0 var(--accent-color, #ff0070);
+  line-height: 82.5%;
+  justify-self: start;
+}
+
+.title-decor {
+  background-color: var(--accent-color, #ff0070);
+  color: var(--text-color-dark, #000028);
+  font-weight: var(--font-weight-bold, bold);
+  font-size: var(--font-size-small, 18px);
+  line-height: var(--line-height-normal);
+}
+
+/*Состояния для кнопок header*/
+
+.header__theme-menu-button_active {
+  border-color: currentColor;
+  pointer-events: none;
+}
+
+.header__theme-menu-button:hover {
+  border-color: var(--header-hover-color);
+}
+
+.header__theme-menu-button:focus {
+  outline: none;
+}
+
+.header__theme-menu-button:focus-visible::after {
+  content: "";
+  inline-size: 100%;
+  block-size: 1px;
+  background-color: currentColor;
+  position: absolute;
+  inset-inline-start: 0;
+  inset-block-end: -2px;
+}
+
+/*Настройки основного контента*/
+
+.main {
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+  padding: 40px var(--main-gap, 10px);
+}
+
+.section__title {
+  color: var(--section-title-color, #ff0070);
+  margin-block-end: 20px;
+}
+
+.section__title,
+.section__subtitle,
+.section__list-item-subtitle {
+  font-size: var(--font-size-small, 18px);
+  font-weight: var(--font-weight-bold, bold);
+  line-height: var(--line-height-normal);
+}
+
+.section__container,
+.section__list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.section__subtitle,
+.section__list-item-subtitle {
+  margin-block-end: 10px; /*фиксированный*/
+}
+
+.section-how-to .section__subtitle {
+  margin-block-end: 0;
+}
+
+.section__paragraph {
+  color: var(--text-color, #f1b2ce);
+}
+
+.section__paragraph:not(:last-of-type) {
+  margin-block-end: 10px; /*фиксированный (на случай добавления параграфов)*/
+}
+
+.section__paragraph-link {
+  text-shadow: 2px 2px var(--accent-color, #ff0070);
+  text-decoration: none;
+  border-block-end: 1px solid transparent;
+}
+
+/*Настройки секции с картинками*/
+
+.pictures-gallery {
+  margin-block-start: 50px;
+}
+
+.pictures-gallery .section__subtitle {
+  margin-block-end: var(--main-gap, 10px);
+}
+
+.pictures-gallery__container {
+  display: grid;
+  gap: var(--main-gap, 10px);
+}
+
+.pictures-gallery__image {
+  display: block;
+  inline-size: 100%;
+  block-size: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+/*Настройки footer*/
+.footer {
+  inline-size: 100%;
+  min-block-size: 668px;
+  block-size: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.footer__text {
+  color: var(--page-title-color, #db00ff);
+  font-weight: var(--font-weight-bold, bold);
+  font-size: var(--page-title-size);
+  text-shadow: 2px 2px 0 var(--accent-color, #ff0070);
+  line-height: 82.5%;
+}
+
+/*Состояния для ссылок*/
+
+.section__paragraph-link:hover {
+  border-block-end-color: currentColor;
+}
+
+.section__paragraph-link:focus {
+  outline: none;
+}
+
+.section__paragraph-link:focus-visible {
+  outline: 1px solid currentColor;
+}
+
+/*Настройки медиа-запросов*/
+
+@media (width >= 768px) {
+  .header {
+    padding: var(--main-gap, 20px);
+  }
+
+  .header__title {
+    position: relative;
+    inset-inline-start: calc(-1 * var(--main-gap, 20px));
+  }
+
+  .header__description {
+    inline-size: 50%;
+  }
+
+  .decorated-zone::before {
+    inset-block-start: var(--main-gap, 20px);
+    inset-inline-end: var(--main-gap, 20px);
+  }
+
+  .decorated-zone::after {
+    inset-block-end: var(--main-gap, 20px);
+    inset-inline-start: var(--main-gap, 20px);
+  }
+
+  .header__rec-element {
+    inset-block-start: var(--main-gap, 20px);
+    inset-inline-end: calc(var(--main-gap, 20px) + 10px);
+  }
+
+  .main {
+    gap: 80px;
+    padding: 60px var(--main-gap, 20px);
+  }
+
+  .section-why,
+  .section-causes,
+  .section-how-to {
+    display: grid;
+    grid-template-columns: 236px 1fr;
+    gap: 0 var(--main-gap, 20px);
+  }
+
+  .section-causes {
+    grid-template-areas:
+      "title ."
+      "content content";
+  }
+
+  .section-causes .section__title {
+    grid-area: title;
+  }
+
+  .section-causes .section__container {
+    grid-area: content;
+  }
+
+  .section-how-to {
+    grid-template-areas:
+      "title content"
+      "pictures pictures";
+  }
+
+  .section-how-to .section__title {
+    grid-area: title;
+  }
+
+  .section-how-to .section__container {
+    grid-area: content;
+  }
+
+  .section-how-to .pictures-gallery {
+    grid-area: pictures;
+    margin-block-start: 80px;
+  }
+
+  .pictures-gallery .section__subtitle {
+    margin-bottom: var(--main-gap, 20px);
+  }
+
+  .pictures-gallery__container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, auto);
+    gap: var(--main-gap, 20px);
+  }
+
+  .sunset {
+    grid-column: 1 / span 2;
+    grid-row: 1 / 2;
+  }
+
+  .ice-cream {
+    grid-column: 3 / 4;
+    grid-row: 1 / span 2;
+  }
+
+  .tape {
+    grid-column: 1 / 2;
+    grid-row: 2 / span 2;
+  }
+
+  .books {
+    grid-column: 2 / 3;
+    grid-row: 2 / 3;
+  }
+
+  .street {
+    grid-column: 2 / span 2;
+    grid-row: 3 / 4;
+  }
+}
+
+@media (width >= 1024px) {
+  .header__title {
+    font-size: var(--page-title-size);
+  }
+
+  .header__theme-menu {
+    align-self: start;
+    justify-self: center;
+  }
+
+  .header__theme-menu-list {
+    flex-direction: row;
+  }
+
+  .section-why,
+  .section-causes,
+  .section-how-to {
+    grid-template-columns: 315px 1fr;
+  }
+
+  .section-causes .section__container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--main-gap, 20px);
+  }
+
+  .footer__text {
+    font-size: var(--page-title-size);
+  }
 }
